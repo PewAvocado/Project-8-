@@ -1,7 +1,7 @@
 {
-  "name": "webpack-starter",
+  "name": "project-8-todo-list",
   "version": "1.0.0",
-  "description": "My main template for projects",
+  "description": "Todo-list Project from TOP",
   "main": "index.js",
   "type" : "module",
 
@@ -15,15 +15,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PewAvocado/webpack-starter.git"
+    "url": "git+https://github.com/PewAvocado/Project-8-.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PewAvocado/webpack-starter/issues"
+    "url": "https://github.com/PewAvocado/Project-8-/issues"
   },
-  "homepage": "https://github.com/PewAvocado/webpack-starter#readme",
+  "homepage": "https://github.com/PewAvocado/Project-8-#readme",
   "devDependencies": {
     "css-loader": "^7.1.4",
     "html-loader": "^5.1.0",
