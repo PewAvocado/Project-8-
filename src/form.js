@@ -1,5 +1,6 @@
 import { TodoTask } from "./infoTask.js";
 import { addTask } from "./infoArray.js";
+import { showTask } from "./interfaceTask.js";
 
 export function createForm(){
     //Using the div named in my template.html
@@ -43,6 +44,7 @@ export function createForm(){
             taskColor
         )
         addTask(newTask);
+        showTask();
         console.log('Task created!');
         form.reset();
     })

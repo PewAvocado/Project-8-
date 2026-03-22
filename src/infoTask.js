@@ -1,3 +1,5 @@
+
+//This is the class created to store all the data each time the user fills the form
 export class TodoTask{
     constructor(title, description, priority, color){
         this.title = title;
