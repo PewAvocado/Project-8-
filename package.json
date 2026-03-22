@@ -9,7 +9,7 @@
     "start": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "deploy1": "git checkout gh-pages && git merge main --no-edit",
-    "deploy2": "git add dist -f && git commit -m 'Deployment commit'",
+    "deploy2": "git add dist -f && git commit -m \"Deployment commit\" ",
     "deploy3": "git subtree push --prefix dist origin gh-pages"
   },
   "repository": {
