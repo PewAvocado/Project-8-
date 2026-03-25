@@ -1,47 +1,72 @@
-import { getAllTasks, deleteTask } from "./infoArray.js";
+    import { getAllTasks, deleteTask } from "./infoArray.js";
+    import { togglePriority } from "./infoArray.js";
 
+    //This is
+    export function showTask(){
+        const container = document.querySelector('#task-content');
+        container.innerHTML = '';
 
-export function showTask(){
-    const container = document.querySelector('#task-content');
-    container.innerHTML = '';
+        const allTasks = getAllTasks();
+        const categories = ['studies', 'gaming', 'entertainment', 'others'];
 
-    const allTasks = getAllTasks();
+        categories.forEach(category => {
+            const projectSection = document.createElement('div');
+            projectSection.classList.add('project-section');
 
-    allTasks.forEach(task => {
-        const card = document.createElement('div');
+            const categoryTitle = document.createElement('h2');
+            categoryTitle.textContent = category;
+            categoryTitle.classList.add(`title-${category.toLowerCase()}`);
 
-        const title = document.createElement('h3');
-        const description = document.createElement('p');
-        const priority = document.createElement('span');
-        const deleteBtn = document.createElement('button');
+            const filteredTasks = allTasks.filter(task => task.project === category.toLowerCase());
 
-        title.textContent = task.title;
-        description.textContent = task.description;
-        deleteBtn.textContent = 'DELETE';
-        card.classList.add('task-card');
-        priority.classList.add('priority-task');
-        deleteBtn.classList.add('delete-btn');
-        
-        if (task.priority){
-            priority.textContent = 'Urgent!';
-            priority.classList.add('urgent');
-        } else {
-            priority.textContent = 'Normal';
-            priority.classList.add('normal');
-        }
+            if (filteredTasks.length > 0){
+                projectSection.append(categoryTitle);
+                filteredTasks.forEach(task => {
+                    const card = document.createElement('div');
+                    const title = document.createElement('h3');
+                    const description = document.createElement('p');
+                    const priority = document.createElement('span');
+                    const changePriority = document.createElement('button');
+                    const deleteBtn = document.createElement('button');
 
-        deleteBtn.addEventListener('click', () => {
-            deleteTask(task);
-            showTask();
-        })
+                    title.textContent = task.title;
+                    description.textContent = task.description;
+                    changePriority.textContent = 'Normal/Urgent!';
+                    deleteBtn.textContent = 'DELETE';
+                    card.classList.add('task-card');
+                    priority.classList.add('priority-task');
+                    deleteBtn.classList.add('delete-btn');
+                    
+                    if (task.priority){
+                        priority.textContent = 'Urgent!';
+                        priority.classList.add('urgent');
+                    } else {
+                        priority.textContent = 'Normal';
+                        priority.classList.add('normal');
+                    }
 
-        card.append(
-            title,
-            description,
-            priority,
-            deleteBtn
-        )
+                    changePriority.addEventListener('click', () =>{
+                        togglePriority(task);
+                        showTask();
+                    })
 
-        container.append(card);
-    })
-}
+                    deleteBtn.addEventListener('click', () => {
+                        deleteTask(task);
+                        showTask();
+                    })
+    
+                
+                card.append(
+                        title,
+                        description,
+                        priority,
+                        changePriority,
+                        deleteBtn
+                    );
+                    projectSection.append(card);
+                    
+                        });
+                    container.append(projectSection);
+                    } 
+                });
+    };

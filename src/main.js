@@ -5,7 +5,7 @@ import "./style.css";
 const content = document.querySelector('#content');
 const startButton =  document.createElement('button');
 
-startButton.textContent = "Create new list";
+startButton.textContent = "Create new task";
 content.appendChild(startButton);
 showTask();
 

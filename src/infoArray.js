@@ -1,4 +1,4 @@
-//This modulo is to store all the different tasks that the user has created
+//This module is to store all the different tasks that the user has created
 //We use an array to have a full list of the tasks
 
 
@@ -21,10 +21,15 @@ export function getAllTasks(){
     return tasks;
 }
 
-export function deleteTask(index){
+export function deleteTask(taskToDelete){
+    const index = tasks.indexOf(taskToDelete);
     tasks.splice(index, 1);
     console.log('Task deleted. In inventory : ', tasks);
     saveLocalStorage();
 }
 
 
+export function togglePriority(task){
+    task.priority = !task.priority;
+    saveLocalStorage();
+}
