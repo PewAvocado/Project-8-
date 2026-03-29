@@ -2,14 +2,22 @@
     import { togglePriority } from "./infoArray.js";
 
     //This is
-    export function showTask(){
+    export function showTask(selectedCategory = 'all'){
         const container = document.querySelector('#task-content');
         container.innerHTML = '';
 
         const allTasks = getAllTasks();
-        const categories = ['studies', 'gaming', 'entertainment', 'others'];
+        const categories = ['Studies', 'Gaming', 'Entertainment', 'Others'];
 
-        categories.forEach(category => {
+        let categoriesDisplay;
+
+        if (selectedCategory === 'all'){
+            categoriesDisplay = categories;
+        } else {
+            categoriesDisplay = [selectedCategory];
+        }
+
+        categoriesDisplay.forEach(category => {
             const projectSection = document.createElement('div');
             projectSection.classList.add('project-section');
 
@@ -68,5 +76,6 @@
                         });
                     container.append(projectSection);
                     } 
-                });
+                
+            });
     };

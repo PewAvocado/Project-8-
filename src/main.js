@@ -1,20 +1,18 @@
 import { createForm } from "./form.js";
 import { showTask } from "./interfaceTask.js";
+import { createCategoryButton } from "./navigation.js";
 import "./style.css";
 
 const content = document.querySelector('#content');
 const startButton =  document.createElement('button');
+const categories = document.querySelector('#categories');
 
-startButton.textContent = "Create new task";
-content.appendChild(startButton);
+
 showTask();
 
-startButton.addEventListener('click', () => {
-    content.innerHTML = '';
-    createForm();
-    showTask();
-    
-});
 
 
+createForm();
+createCategoryButton();
+showTask();
 
