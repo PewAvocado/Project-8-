@@ -1,3 +1,8 @@
+body{
+    line-height: 1.6;
+    background-color: #F8F9FA;
+}
+
 /* Main content, making them all repeat and grid */
 #task-content {
     display: grid;
@@ -7,6 +12,7 @@
     padding: 40px;
     width: 100%;
     box-sizing: border-box; 
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #content {
@@ -21,13 +27,14 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     max-width: 500px;
     margin: 40px auto; 
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Inputs y Textarea */
+
 #content input[type="text"], 
 #content textarea,
 #content select {
-    width: 100%; /* Ocupan todo el ancho del contenedor */
+    width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -35,15 +42,6 @@
     box-sizing: border-box;
 }
 
-/* El área de descripción más grande */
-#content description{
-    min-height: 100px; /* Aquí le das el tamaño extra que pediste */
-    resize: vertical;  /* Permite que el usuario lo estire si quiere */
-}
-
-
-
-/* Botón CREATE */
 #categories {
     background-color: #97e099;
     color: white;
@@ -54,6 +52,7 @@
     cursor: pointer;
     transition: background 0.3s;
     text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #categories:hover {
@@ -108,6 +107,12 @@
     background-color: #e0e0e0;
     color: #333;
 }
+
+.interactive-btn{
+    display: flex;
+    justify-content: space-between;
+}
+
 /* Delete button style */
 .delete-btn {
     background-color: #ff4d4d;
@@ -116,11 +121,23 @@
     padding: 8px;
     border-radius: 5px;
     cursor: pointer;
-    align-self: flex-end;
+}
+
+.edit-btn{
+    background-color: #5c7cfa;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .delete-btn:hover {
     background-color: #cc0000;
+}
+
+.edit-btn:hover{
+    background-color: #516cd8;
 }
 
 .project-section {
@@ -128,24 +145,39 @@
 }
 
 .title-gaming {
-    color: #ff4c4c;
+    color: #2ecc71;
+}
+
+.task-gaming{
+    background-color: #2ecc71;
 }
 
 .title-entertainment {
     color: #bb86fc;
 }
 
+.task-entertainment{
+    background-color: #bb86fc;
+}
+
 .title-studies {
     color: #00d4ff;
 }
 
+.task-studies{
+    background-color: #00d4ff;
+}
+
 .title-others {
-    color: #e2ff00;
+    color: #d35400;
+}
+
+.task-others{
+    background-color: #d35400;
 }
 
 .task-card {
     position: relative; 
-    background-color: #ffffff; 
     border: 1px solid #ddd;
     padding: 20px;
     margin: 10px 0;
@@ -193,4 +225,36 @@
     word-wrap: break-word; 
     line-height: 1.5; 
     color: #333; 
+}
+
+.modal-overlay{
+    /* Posicionamiento fijo para que cubra toda la pantalla */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Color negro con opacidad (el "dim" de los juegos) */
+    background-color: rgba(0, 0, 0, 0.6); 
+    
+    /* Flexbox para centrar el formulario */
+    display: none; /* Escondido por defecto */
+    justify-content: center;
+    align-items: center;
+    
+    z-index: 999;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-overlay #task-form {
+    background-color: white; /* O el color de tu interfaz */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    width: 400px;
+    border: 2px solid #444; /* Un toque más marcado */
 }

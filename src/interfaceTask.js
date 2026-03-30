@@ -1,5 +1,13 @@
-    import { getAllTasks, deleteTask } from "./infoArray.js";
+    import { getAllTasks, deleteTask, rememberTask, updateTask } from "./infoArray.js";
     import { togglePriority } from "./infoArray.js";
+
+
+    const modal = document.createElement('div');
+    modal.classList.add('modal-overlay');
+    document.body.append(modal);
+
+    
+
 
     //This is
     export function showTask(selectedCategory = 'all'){
@@ -38,14 +46,21 @@
                     const priority = document.createElement('span');
                     const changePriority = document.createElement('button');
                     const deleteBtn = document.createElement('button');
+                    const editBtn = document.createElement('button');
+                    const interactiveBtns = document.createElement('div');
+
+                    interactiveBtns.append(editBtn, deleteBtn);
 
                     title.textContent = task.title;
                     description.textContent = task.description;
                     changePriority.textContent = 'Normal/Urgent!';
                     deleteBtn.textContent = 'DELETE';
+                    editBtn.textContent = 'EDIT';
                     card.classList.add('task-card');
                     priority.classList.add('priority-task');
                     deleteBtn.classList.add('delete-btn');
+                    editBtn.classList.add('edit-btn');
+                    interactiveBtns.classList.add('interactive-btn');
                     
                     if (task.priority){
                         priority.textContent = 'Urgent!';
@@ -64,6 +79,16 @@
                         deleteTask(task);
                         showTask();
                     })
+
+                    editBtn.addEventListener('click', () => {
+                        const form = document.querySelector('#task-form');
+                        form.dataset.editingId = task.id;
+                       
+                        rememberTask(task);
+                        modal.append(form);
+                        
+                        modal.classList.add('active');
+                    })
     
                 
                 card.append(
@@ -71,7 +96,7 @@
                         description,
                         priority,
                         changePriority,
-                        deleteBtn
+                        interactiveBtns
                     );
                     projectSection.append(card);
                     

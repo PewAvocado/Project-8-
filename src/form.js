@@ -1,5 +1,5 @@
 import { TodoTask } from "./infoTask.js";
-import { addTask } from "./infoArray.js";
+import { addTask, tasks, updateTask } from "./infoArray.js";
 import { showTask } from "./interfaceTask.js";
 
 export function createForm(){
@@ -7,7 +7,6 @@ export function createForm(){
     const categories = ['Studies', 'Gaming', 'Entertainment', 'Others'];
     const content2 = document.querySelector('#content');
     
-
     //Creating the different elements needed in the form
     const form = document.createElement('form');
     const title = document.createElement('input');
@@ -16,18 +15,30 @@ export function createForm(){
     const submit = document.createElement('button');
     const taskGroup = document.createElement('select');
 
+    const titleBag = document.createElement('div');
+    const descriptionBag = document.createElement('div');
+    const priorityBag = document.createElement('div');
+    const taskGroupBag = document.createElement('div');
+
+    titleBag.append('Task title', title);
+    descriptionBag.append('Task description', description);
+    priorityBag.append('Urgent?', priority);
+    taskGroupBag.append('Which category?', taskGroup);
     
     //Adding the corresponding properties to my elements
+    form.id = 'task-form';
     title.placeholder = 'TITLE';
     title.id = 'task-title';
     title.required = true;
     title.maxLength = 30;
     description.placeholder = 'DESCRIPTION';
-    description.maxLength = 120;
+    description.maxLength = 300;
+    description.id = 'task-description'
     priority.type = 'checkbox';
     taskGroup.id = 'projectCategory';
-    submit.textContent = 'CREATE';
+    submit.textContent = 'CREATE TASK';
     submit.type = 'submit';
+    submit.id = 'task-submit';
 
     categories.forEach(category => {
         const option = document.createElement('option');
@@ -45,13 +56,35 @@ export function createForm(){
         const taskPriority = priority.checked;
         const taskProject = taskGroup.value;
 
-        const newTask = new TodoTask(
+        const editingId = form.dataset.editingId;
+
+        if (editingId){
+            const newData = {
+                title: taskTitle,
+                description: taskDescription,
+                priority: taskPriority,
+                project: taskProject
+            };
+
+            updateTask(editingId, newData, tasks);
+            delete form.dataset.editingId;
+
+            const modal = document.querySelector('.modal-overlay');
+            modal.classList.remove('active');
+
+            content2.append(form);
+            submit.textContent = 'CREATE TASK';
+
+            console.log('Updated!')
+        } else {
+            const newTask = new TodoTask(
             taskTitle,
             taskDescription,
             taskPriority,
             taskProject  
         )
         addTask(newTask);
+        }
         showTask();
         console.log('Task created!');
         form.reset();
@@ -59,10 +92,10 @@ export function createForm(){
 
     //Form append
     form.append(
-        title,
-        description, 
-        priority, 'Urgent?',
-        taskGroup,
+        titleBag,
+        descriptionBag, 
+        priorityBag,
+        taskGroupBag,
         submit);
     content2.append(form);
 
