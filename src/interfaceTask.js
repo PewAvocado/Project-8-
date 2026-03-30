@@ -1,15 +1,7 @@
-    import { getAllTasks, deleteTask, rememberTask, updateTask } from "./infoArray.js";
+    import { getAllTasks, deleteTask, rememberTask } from "./infoArray.js";
     import { togglePriority } from "./infoArray.js";
-
-
-    const modal = document.createElement('div');
-    modal.classList.add('modal-overlay');
-    document.body.append(modal);
-
+    import { getModal } from "./domElements.js";
     
-
-
-    //This is
     export function showTask(selectedCategory = 'all'){
         const container = document.querySelector('#task-content');
         container.innerHTML = '';
@@ -85,9 +77,10 @@
                         form.dataset.editingId = task.id;
                        
                         rememberTask(task);
-                        modal.append(form);
-                        
-                        modal.classList.add('active');
+
+                        const currentModal = getModal();
+                        currentModal.append(form);
+                        currentModal.classList.add('active');
                     })
     
                 

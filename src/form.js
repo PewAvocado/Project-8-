@@ -1,6 +1,7 @@
 import { TodoTask } from "./infoTask.js";
 import { addTask, tasks, updateTask } from "./infoArray.js";
 import { showTask } from "./interfaceTask.js";
+import { modal } from "./domElements.js";
 
 export function createForm(){
     //Using the div named in my template.html
@@ -13,6 +14,7 @@ export function createForm(){
     const description = document.createElement('textarea');
     const priority = document.createElement('input');
     const submit = document.createElement('button');
+    const cancelBtn = document.createElement('button');
     const taskGroup = document.createElement('select');
 
     const titleBag = document.createElement('div');
@@ -39,6 +41,8 @@ export function createForm(){
     submit.textContent = 'CREATE TASK';
     submit.type = 'submit';
     submit.id = 'task-submit';
+    cancelBtn.textContent = 'CANCEL';
+    cancelBtn.type = 'button';
 
     categories.forEach(category => {
         const option = document.createElement('option');
@@ -88,6 +92,15 @@ export function createForm(){
         showTask();
         console.log('Task created!');
         form.reset();
+    });
+
+    cancelBtn.addEventListener('click', () =>{
+        modal.classList.remove('active');
+
+        form.reset();
+        delete form.dataset.editingId;
+        content2.append(form);
+        submit.textContent = 'CREATE TASK';
     })
 
     //Form append
@@ -96,7 +109,8 @@ export function createForm(){
         descriptionBag, 
         priorityBag,
         taskGroupBag,
-        submit);
+        submit,
+    cancelBtn);
     content2.append(form);
 
    
