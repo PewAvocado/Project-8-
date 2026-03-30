@@ -7,11 +7,6 @@ const content = document.querySelector('#content');
 const startButton =  document.createElement('button');
 const categories = document.querySelector('#categories');
 
-
-showTask();
-
-
-
 createForm();
 createCategoryButton();
 showTask();

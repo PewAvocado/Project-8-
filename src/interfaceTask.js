@@ -31,6 +31,8 @@
                 projectSection.append(categoryTitle);
                 filteredTasks.forEach(task => {
                     const card = document.createElement('div');
+                    card.classList.add('task-card');
+                    card.classList.add(`task-${category.toLowerCase()}`);
                     const title = document.createElement('h3');
                     const description = document.createElement('p');
                     const priority = document.createElement('span');

@@ -4,14 +4,14 @@ import { showTask } from "./interfaceTask.js";
 
 export function createForm(){
     //Using the div named in my template.html
-    const categories = ['studies', 'gaming', 'entertainment', 'others'];
+    const categories = ['Studies', 'Gaming', 'Entertainment', 'Others'];
     const content2 = document.querySelector('#content');
     
 
     //Creating the different elements needed in the form
     const form = document.createElement('form');
     const title = document.createElement('input');
-    const description = document.createElement('input');
+    const description = document.createElement('textarea');
     const priority = document.createElement('input');
     const submit = document.createElement('button');
     const taskGroup = document.createElement('select');

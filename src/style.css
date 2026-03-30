@@ -1,9 +1,63 @@
 /* Main content, making them all repeat and grid */
 #task-content {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fit, 300px); 
+    justify-content: center; 
+    gap: 30px;
+    padding: 40px;
+    width: 100%;
+    box-sizing: border-box; 
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin: 40px auto; 
+}
+
+/* Inputs y Textarea */
+#content input[type="text"], 
+#content textarea,
+#content select {
+    width: 100%; /* Ocupan todo el ancho del contenedor */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+/* El área de descripción más grande */
+#content description{
+    min-height: 100px; /* Aquí le das el tamaño extra que pediste */
+    resize: vertical;  /* Permite que el usuario lo estire si quiere */
+}
+
+
+
+/* Botón CREATE */
+#categories {
+    background-color: #97e099;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-align: center;
+}
+
+#categories:hover {
+    background-color: #45a049;
 }
 
 /* How are the cards seen */
@@ -67,4 +121,76 @@
 
 .delete-btn:hover {
     background-color: #cc0000;
+}
+
+.project-section {
+    text-transform: capitalize;
+}
+
+.title-gaming {
+    color: #ff4c4c;
+}
+
+.title-entertainment {
+    color: #bb86fc;
+}
+
+.title-studies {
+    color: #00d4ff;
+}
+
+.title-others {
+    color: #e2ff00;
+}
+
+.task-card {
+    position: relative; 
+    background-color: #ffffff; 
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 8px;
+    overflow: hidden; 
+    min-height: 100px;
+}
+
+.task-gaming::before,
+.task-others::before,
+.task-studies::before,
+.task-entertainment::before {
+    content: ""; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px; 
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.08; 
+    filter: grayscale(100%); 
+    pointer-events: none;
+}
+
+.task-entertainment::before{
+    background-image: url('./assets/entertainment.png');
+}
+
+.task-gaming::before{
+    background-image: url('./assets/gaming.png');
+}
+
+.task-others::before::before{
+    background-image: url('./assets/others.png');
+}
+
+.task-studies::before{
+    background-image: url('./assets/studies.png');
+}
+
+.task-card p {
+    margin: 0;
+    word-wrap: break-word; 
+    line-height: 1.5; 
+    color: #333; 
 }
