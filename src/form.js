@@ -1,117 +1,116 @@
-import { TodoTask } from "./infoTask.js";
-import { addTask, tasks, updateTask } from "./infoArray.js";
-import { showTask } from "./interfaceTask.js";
-import { modal } from "./domElements.js";
+import { TodoTask } from './infoTask.js';
+import { addTask, tasks, updateTask } from './infoArray.js';
+import { showTask } from './interfaceTask.js';
+import { modal } from './domElements.js';
 
-export function createForm(){
-    //Using the div named in my template.html
-    const categories = ['Studies', 'Gaming', 'Entertainment', 'Others'];
-    const content2 = document.querySelector('#content');
-    
-    //Creating the different elements needed in the form
-    const form = document.createElement('form');
-    const title = document.createElement('input');
-    const description = document.createElement('textarea');
-    const priority = document.createElement('input');
-    const submit = document.createElement('button');
-    const cancelBtn = document.createElement('button');
-    const taskGroup = document.createElement('select');
+export function createForm() {
+  //Using the div named in my template.html
+  const categories = ['Studies', 'Gaming', 'Entertainment', 'Others'];
+  const content2 = document.querySelector('#content');
 
-    const titleBag = document.createElement('div');
-    const descriptionBag = document.createElement('div');
-    const priorityBag = document.createElement('div');
-    const taskGroupBag = document.createElement('div');
+  //Creating the different elements needed in the form
+  const form = document.createElement('form');
+  const title = document.createElement('input');
+  const description = document.createElement('textarea');
+  const priority = document.createElement('input');
+  const submit = document.createElement('button');
+  const cancelBtn = document.createElement('button');
+  const taskGroup = document.createElement('select');
 
-    titleBag.append('Task title', title);
-    descriptionBag.append('Task description', description);
-    priorityBag.append('Urgent?', priority);
-    taskGroupBag.append('Which category?', taskGroup);
-    
-    //Adding the corresponding properties to my elements
-    form.id = 'task-form';
-    title.placeholder = 'TITLE';
-    title.id = 'task-title';
-    title.required = true;
-    title.maxLength = 30;
-    description.placeholder = 'DESCRIPTION';
-    description.maxLength = 300;
-    description.id = 'task-description'
-    priority.type = 'checkbox';
-    taskGroup.id = 'projectCategory';
-    submit.textContent = 'CREATE TASK';
-    submit.type = 'submit';
-    submit.id = 'task-submit';
-    cancelBtn.textContent = 'CANCEL';
-    cancelBtn.type = 'button';
+  const titleBag = document.createElement('div');
+  const descriptionBag = document.createElement('div');
+  const priorityBag = document.createElement('div');
+  const taskGroupBag = document.createElement('div');
 
-    categories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category.toLowerCase();
-        option.textContent = category;
-        taskGroup.append(option);
-    })
+  titleBag.append('Task title', title);
+  descriptionBag.append('Task description', description);
+  priorityBag.append('Urgent?', priority);
+  taskGroupBag.append('Which category?', taskGroup);
 
-    //Adding listener to the submit button
-    form.addEventListener('submit', (event) =>{
-        event.preventDefault();
+  //Adding the corresponding properties to my elements
+  form.id = 'task-form';
+  title.placeholder = 'TITLE';
+  title.id = 'task-title';
+  title.required = true;
+  title.maxLength = 30;
+  description.placeholder = 'DESCRIPTION';
+  description.maxLength = 300;
+  description.id = 'task-description';
+  priority.type = 'checkbox';
+  taskGroup.id = 'projectCategory';
+  submit.textContent = 'CREATE TASK';
+  submit.type = 'submit';
+  submit.id = 'task-submit';
+  cancelBtn.textContent = 'CANCEL';
+  cancelBtn.type = 'button';
 
-        const taskTitle = title.value.trim();
-        const taskDescription = description.value;
-        const taskPriority = priority.checked;
-        const taskProject = taskGroup.value;
+  categories.forEach((category) => {
+    const option = document.createElement('option');
+    option.value = category.toLowerCase();
+    option.textContent = category;
+    taskGroup.append(option);
+  });
 
-        const editingId = form.dataset.editingId;
+  //Adding listener to the submit button
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-        if (editingId){
-            const newData = {
-                title: taskTitle,
-                description: taskDescription,
-                priority: taskPriority,
-                project: taskProject
-            };
+    const taskTitle = title.value.trim();
+    const taskDescription = description.value;
+    const taskPriority = priority.checked;
+    const taskProject = taskGroup.value;
 
-            updateTask(editingId, newData, tasks);
-            delete form.dataset.editingId;
+    const editingId = form.dataset.editingId;
 
-            const modal = document.querySelector('.modal-overlay');
-            modal.classList.remove('active');
+    if (editingId) {
+      const newData = {
+        title: taskTitle,
+        description: taskDescription,
+        priority: taskPriority,
+        project: taskProject,
+      };
 
-            content2.append(form);
-            submit.textContent = 'CREATE TASK';
+      updateTask(editingId, newData, tasks);
+      delete form.dataset.editingId;
 
-            console.log('Updated!')
-        } else {
-            const newTask = new TodoTask(
-            taskTitle,
-            taskDescription,
-            taskPriority,
-            taskProject  
-        )
-        addTask(newTask);
-        }
-        showTask();
-        console.log('Task created!');
-        form.reset();
-    });
+      const modal = document.querySelector('.modal-overlay');
+      modal.classList.remove('active');
 
-    cancelBtn.addEventListener('click', () =>{
-        modal.classList.remove('active');
+      content2.append(form);
+      submit.textContent = 'CREATE TASK';
 
-        form.reset();
-        delete form.dataset.editingId;
-        content2.append(form);
-        submit.textContent = 'CREATE TASK';
-    })
+      console.log('Updated!');
+    } else {
+      const newTask = new TodoTask(
+        taskTitle,
+        taskDescription,
+        taskPriority,
+        taskProject
+      );
+      addTask(newTask);
+    }
+    showTask();
+    console.log('Task created!');
+    form.reset();
+  });
 
-    //Form append
-    form.append(
-        titleBag,
-        descriptionBag, 
-        priorityBag,
-        taskGroupBag,
-        submit,
-    cancelBtn);
+  cancelBtn.addEventListener('click', () => {
+    modal.classList.remove('active');
+
+    form.reset();
+    delete form.dataset.editingId;
     content2.append(form);
+    submit.textContent = 'CREATE TASK';
+  });
 
-   
+  //Form append
+  form.append(
+    titleBag,
+    descriptionBag,
+    priorityBag,
+    taskGroupBag,
+    submit,
+    cancelBtn
+  );
+  content2.append(form);
 }
