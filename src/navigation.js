@@ -26,3 +26,15 @@ export function createCategoryButton() {
     nav.append(button);
   });
 }
+
+export function showError(inputElement, errorSpan) {
+  if (inputElement.validity.valid) {
+    errorSpan.textContent = '';
+  } else {
+    if (inputElement.validity.valueMissing) {
+      errorSpan.textContent = 'Hey! You need to type something!';
+    } else if (inputElement.validity.tooShort) {
+      errorSpan.textContent = 'This is just too short!';
+    }
+  }
+}

@@ -2,11 +2,13 @@ import { TodoTask } from './infoTask.js';
 import { addTask, tasks, updateTask } from './infoArray.js';
 import { showTask } from './interfaceTask.js';
 import { modal } from './domElements.js';
+import { showError } from './navigation.js';
 
 export function createForm() {
   //Using the div named in my template.html
   const categories = ['Studies', 'Gaming', 'Entertainment', 'Others'];
   const content2 = document.querySelector('#content');
+  const titleError = document.createElement('span');
 
   //Creating the different elements needed in the form
   const form = document.createElement('form');
@@ -22,7 +24,7 @@ export function createForm() {
   const priorityBag = document.createElement('div');
   const taskGroupBag = document.createElement('div');
 
-  titleBag.append('Task title', title);
+  titleBag.append('Task title', title, titleError);
   descriptionBag.append('Task description', description);
   priorityBag.append('Urgent?', priority);
   taskGroupBag.append('Which category?', taskGroup);
@@ -32,6 +34,7 @@ export function createForm() {
   title.placeholder = 'TITLE';
   title.id = 'task-title';
   title.required = true;
+  title.minLength = 5;
   title.maxLength = 30;
   description.placeholder = 'DESCRIPTION';
   description.maxLength = 300;
@@ -102,6 +105,8 @@ export function createForm() {
     content2.append(form);
     submit.textContent = 'CREATE TASK';
   });
+
+  title.addEventListener('input', () => showError(title, titleError));
 
   //Form append
   form.append(
